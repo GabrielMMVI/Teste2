@@ -8,7 +8,7 @@
     <ScrollView>
         <VerticalStackLayout Padding="0" Spacing="0">
 
-            <!-- 🔵 CABEÇALHO AZUL -->
+            <!-- CABEÇALHO -->
             <Grid BackgroundColor="#1E3A8A" 
                   Padding="20,50,20,30"
                   RowDefinitions="Auto,Auto"
@@ -34,7 +34,7 @@
                        VerticalOptions="Center"/>
             </Grid>
 
-            <!-- 👤 SEÇÃO PERFIL -->
+            <!-- PERFIL -->
             <VerticalStackLayout Padding="20,30,20,20" Spacing="15">
 
                 <!-- Avatar e Info do Usuário -->
@@ -74,7 +74,7 @@
 
             </VerticalStackLayout>
 
-            <!-- ⚙️ SEÇÃO: NOTIFICAÇÕES -->
+            <!-- NOTIFICAÇÕES -->
             <VerticalStackLayout Padding="20,10,20,10" Spacing="0">
                 <Label Text="Notificações"
                        FontFamily="OpenSansSemibold"
@@ -83,7 +83,7 @@
                        Margin="0,0,0,10"
                        TextTransform="Uppercase"/>
 
-                <!-- Push Notifications -->
+                <!-- Notificações em Push -->
                 <Border BackgroundColor="White"
                         Padding="15"
                         Margin="0,0,0,1"
@@ -129,7 +129,7 @@
                     </Grid>
                 </Border>
 
-                <!-- Email Notifications -->
+                <!-- Notificações por Email -->
                 <Border BackgroundColor="White"
                         Padding="15"
                         StrokeThickness="0">
@@ -175,7 +175,7 @@
                 </Border>
             </VerticalStackLayout>
 
-            <!-- ⚙️ SEÇÃO: PREFERÊNCIAS -->
+            <!-- PREFERÊNCIAS -->
             <VerticalStackLayout Padding="20,20,20,10" Spacing="0">
                 <Label Text="Preferências"
                        FontFamily="OpenSansSemibold"
@@ -287,7 +287,7 @@
                 </Border>
             </VerticalStackLayout>
 
-            <!-- ⚙️ SEÇÃO: SOBRE -->
+            <!-- SOBRE -->
             <VerticalStackLayout Padding="20,20,20,10" Spacing="0">
                 <Label Text="Sobre"
                        FontFamily="OpenSansSemibold"
@@ -394,7 +394,7 @@
                 </Border>
             </VerticalStackLayout>
 
-            <!-- 🔴 BOTÃO SALVAR -->
+            <!-- BOTÃO SALVAR -->
             <Border Padding="20,30,20,40">
                 <Button Text="Salvar Alterações"
                         BackgroundColor="#1E3A8A"
@@ -407,7 +407,7 @@
             </Border>
 
             <!-- Versão -->
-            <Label Text="Versão 2.1.4"
+            <Label Text="Versão 0.0.0 (Pre-Alpha)"
                    FontFamily="OpenSansRegular"
                    FontSize="12"
                    TextColor="#9CA3AF"
