@@ -1,4 +1,4 @@
-namespace Heicomp_2025_2.Views.Configuracoes;
+Ôªønamespace Heicomp_2025_2.Views.Configuracoes;
 
 public partial class ConfiguracoesPage : ContentPage
 {
@@ -7,14 +7,14 @@ public partial class ConfiguracoesPage : ContentPage
         InitializeComponent();
     }
 
-    // Evento: Bot„o Voltar
+    // Evento: Bot√£o Voltar
     private async void OnVoltarClicked(object sender, EventArgs e)
     {
         await DisplayAlert("Voltar", "Voltando para a tela anterior...", "OK");
-        // await Navigation.PopAsync(); // Descomente quando tiver navegaÁ„o configurada
+        // await Navigation.PopAsync(); // Descomente quando tiver navega√ß√£o configurada
     }
 
-    // Evento: Salvar AlteraÁıes
+    // Evento: Salvar Altera√ß√µes
     private async void OnSalvarClicked(object sender, EventArgs e)
     {
         // Captura os valores dos switches
@@ -22,7 +22,7 @@ public partial class ConfiguracoesPage : ContentPage
         bool emailNotif = SwitchEmailNotif.IsToggled;
         bool temaEscuro = SwitchTemaEscuro.IsToggled;
 
-        string mensagem = $"ConfiguraÁıes salvas!\n\n" +
+        string mensagem = $"Configura√ß√µes salvas!\n\n" +
                          $"Push Notifications: {(pushNotif ? "Ativado" : "Desativado")}\n" +
                          $"Email Notifications: {(emailNotif ? "Ativado" : "Desativado")}\n" +
                          $"Tema Escuro: {(temaEscuro ? "Ativado" : "Desativado")}";
@@ -37,9 +37,9 @@ public partial class ConfiguracoesPage : ContentPage
             "Selecione o Idioma",
             "Cancelar",
             null,
-            "PortuguÍs",
+            "Portugu√™s",
             "English",
-            "EspaÒol"
+            "Espa√±ol"
         );
 
         if (resultado != null && resultado != "Cancelar")
@@ -63,8 +63,36 @@ public partial class ConfiguracoesPage : ContentPage
     {
         await DisplayAlert(
             "Termos de Uso",
-            "Ao usar este aplicativo, vocÍ concorda com nossos termos e polÌticas de privacidade.",
+            "Ao usar este aplicativo, voc√™ concorda com nossos termos e pol√≠ticas de privacidade.",
             "Li e aceito"
         );
+    }
+
+    // Mudan√ßa : Tema Escuro
+    private void AplicarTema(bool temaEscuro)
+    {
+        try
+        {
+            if (temaEscuro)
+            {
+                // Ativa o tema escuro
+                Application.Current.UserAppTheme = AppTheme.Dark;
+            }
+            else
+            {
+                // Ativa o tema claro
+                Application.Current.UserAppTheme = AppTheme.Light;
+            }
+
+            // Salva a prefer√™ncia
+            Preferences.Set("TemaEscuro", temaEscuro);
+
+            // For√ßa a atualiza√ß√£o da interface
+            Application.Current.MainPage = new MauiApp1.AppShell();
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"‚ùå Erro: {ex.Message}");
+        }
     }
 }
