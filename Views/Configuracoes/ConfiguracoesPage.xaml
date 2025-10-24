@@ -223,7 +223,7 @@
                         <!-- Switch -->
                         <Switch Grid.Column="2"
                                 x:Name="SwitchTemaEscuro"
-                                IsToggled="False"
+                                IsToggled="{Binding TemaEscuroEnabled}"
                                 OnColor="#3B82F6"
                                 ThumbColor="White"
                                 VerticalOptions="Center"/>

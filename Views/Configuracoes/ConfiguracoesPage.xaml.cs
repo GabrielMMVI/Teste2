@@ -1,10 +1,32 @@
 ﻿namespace Heicomp_2025_2.Views.Configuracoes;
 
-public partial class ConfiguracoesPage : ContentPage
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+public partial class ConfiguracoesPage : ContentPage, INotifyPropertyChanged
 {
+    private bool _temaEscuroEnabled;
+
+    public bool TemaEscuroEnabled
+    {
+        get => _temaEscuroEnabled;
+        set
+        {
+            if (_temaEscuroEnabled != value)
+            {
+                _temaEscuroEnabled = value;
+                OnPropertyChanged(); // Notifica a UI que o valor mudou
+                AplicarTema(value); // Aplica o tema
+            }
+        }
+    }
+
     public ConfiguracoesPage()
     {
         InitializeComponent();
+        // Carrega a preferência salva e define o estado inicial do Switch
+        TemaEscuroEnabled = Preferences.Get("TemaEscuro", false);
+        BindingContext = this; // Conecta a UI (XAML) com este código
     }
 
     // Evento: Botão Voltar
@@ -17,15 +39,16 @@ public partial class ConfiguracoesPage : ContentPage
     // Evento: Salvar Alterações
     private async void OnSalvarClicked(object sender, EventArgs e)
     {
-        // Captura os valores dos switches
+        // Captura os valores dos outros switches
         bool pushNotif = SwitchPushNotif.IsToggled;
         bool emailNotif = SwitchEmailNotif.IsToggled;
-        bool temaEscuro = SwitchTemaEscuro.IsToggled;
+        
+        // A lógica do tema escuro não é mais necessária aqui, pois é aplicada instantaneamente.
 
         string mensagem = $"Configurações salvas!\n\n" +
                          $"Push Notifications: {(pushNotif ? "Ativado" : "Desativado")}\n" +
                          $"Email Notifications: {(emailNotif ? "Ativado" : "Desativado")}\n" +
-                         $"Tema Escuro: {(temaEscuro ? "Ativado" : "Desativado")}";
+                         $"Tema Escuro: {(TemaEscuroEnabled ? "Ativado" : "Desativado")}";
 
         await DisplayAlert("Sucesso", mensagem, "OK");
     }
@@ -68,31 +91,32 @@ public partial class ConfiguracoesPage : ContentPage
         );
     }
 
-    // Mudança : Tema Escuro
     private void AplicarTema(bool temaEscuro)
     {
         try
         {
-            if (temaEscuro)
-            {
-                // Ativa o tema escuro
-                Application.Current.UserAppTheme = AppTheme.Dark;
-            }
-            else
-            {
-                // Ativa o tema claro
-                Application.Current.UserAppTheme = AppTheme.Light;
-            }
+            AppTheme themeRequested = temaEscuro ? AppTheme.Dark : AppTheme.Light;
+
+            if (Application.Current.UserAppTheme == themeRequested)
+                return;
+
+            Application.Current.UserAppTheme = themeRequested;
 
             // Salva a preferência
             Preferences.Set("TemaEscuro", temaEscuro);
-
-            // Força a atualização da interface
-            Application.Current.MainPage = new MauiApp1.AppShell();
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine($"❌ Erro: {ex.Message}");
+            System.Diagnostics.Debug.WriteLine($"Erro ao aplicar tema: {ex.Message}");
         }
     }
+
+    #region INotifyPropertyChanged Implementation
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    #endregion
 }
